@@ -1,33 +1,37 @@
-        -- ENTIDADES MAPEADAS --
-// Alumno, Asignatura, Curso, Despacho, Profesor
+# Proyecto de Acceso a Datos - Hibernate
 
-        -- RELACIONES --
-// 1-1 Profesor-Despacho 1-N Alumno-Curso N:M Alumno-Asignaturas
+## Entidades Mapeadas
+* Alumno
+* Asignatura
+* Curso
+* Despacho
+* Profesor
 
-        -- CRUD --
-// AlumnoDAO implementa create(añadir)[-r hace que en la creacion se muestre la lista de cursos],
-// update(actualizar), delete(eliminar), read(mostrar)[-r muestra listaAsignaturas]
+## Relaciones de la Base de Datos
+* **1:1** Profesor - Despacho
+* **1:N** Alumno - Curso
+* **N:M** Alumno - Asignaturas
 
-        -- Tarea 1 --
-// muestra (sin escribir Alumno ya que solo está implementado para esa entidad)
-// Muestra todos los alumnos de la base de datos, añadimos -r mostrará también su lista de asignaturas
+## Operaciones CRUD (AlumnoDAO)
+El paquete `dao` implementa el mantenimiento completo para la entidad Alumno:
+* **Create (añadir):** Permite registrar un nuevo alumno. Si se ejecuta con el parámetro `-r`, muestra la lista de cursos disponibles durante el proceso.
+* **Read (mostrar):** Muestra los registros. Si se añade `-r`, muestra también la lista de asignaturas asociadas.
+* **Update (actualizar):** Modifica los datos existentes de un alumno.
+* **Delete (eliminar):** Da de baja un registro de alumno.
 
-        -- Tarea 2 --
-// añadir Alumno muestra un asistente para añadir, deja el curso en Null
-// si añadimos un -r, nos aparecerá una lista con los cursos existentes
-// escribiremos el curso al que queramos que pertenezca, si lo que escribimos
-// NO EXISTE dentro de la BD, lo crea (en vez de poner Curso0 lo he creado así)
+## Instrucciones de Uso y Comandos
 
-Este código me funciona en clase, en caso de que el mapeo no funcione, cambiar la línea 35 de persistence.xml por:
-/* <property name="hibernate.hbm2ddl.auto" value="create"/> */
+### Tarea 1: Visualización
+* Ejecutando el comando de muestra (sin necesidad de especificar la entidad, ya que está implementado para Alumno):
+  Muestra todos los alumnos de la base de datos. Al añadir el modificador `-r`, se mostrará también la lista de sus asignaturas correspondientes.
 
-El código puede funcionar sin datos de ejemplo.
+### Tarea 2: Inserción Interactiva
+* Ejecutando `añadir Alumno`: Muestra un asistente por consola para registrar los datos básicos dejando el curso en `null`.
+* Ejecutando `añadir -r`: Despliega una lista con los cursos existentes. El usuario introduce el nombre del curso deseado; si el curso no existe en la base de datos, el sistema lo crea automáticamente y lo asigna.
 
-Existe un package deprecated en el que hacía uso de cuatro clases para la creación de un ManyToMany
+## Notas de Configuración y Ejecución
+* El programa funciona correctamente con los datos de prueba provistos.
+* En caso de incidencias con el mapeo o la persistencia al iniciar la aplicación, asegúrate de configurar la siguiente propiedad en la línea 35 del archivo `persistence.xml`:
 
-Package dao contiene el CRUD de la entidad alumno
-
-Package model contiene las clases con las entidades de la BD
-
-META-INF contiene el logback.xml y el pesistence.xml
-
+```xml
+<property name="hibernate.hbm2ddl.auto" value="create"/>
