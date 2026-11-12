@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.2"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+             https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd">
+
+    <persistence-unit name="colegioPU" transaction-type="RESOURCE_LOCAL">
+        <description>Unidad de persistencia para aplicación Colegio - Hibernate 7.1.2</description>
+
+        <!-- Proveedor Hibernate 7 -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Entidades -->
+<!--        <class>org.cipfpcheste.dam2.deprecated.AlumnoOLD</class>-->
+<!--        <class>org.cipfpcheste.dam2.deprecated.AlumnoAsignaturaOLD</class>-->
+        <class>org.cipfpcheste.dam2.model.Asignatura</class>
+        <class>org.cipfpcheste.dam2.model.Alumno</class>
+        <class>org.cipfpcheste.dam2.model.Curso</class>
+        <class>org.cipfpcheste.dam2.model.Despacho</class>
+        <class>org.cipfpcheste.dam2.model.Profesor</class>
+
+        <properties>
+            <!-- Conexión a Base de Datos - FORMATO NUEVO -->
+            <property name="jakarta.persistence.jdbc.driver"
+                      value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost:3306/colegio?createDatabaseIfNotExist=true"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value="toor2026"/>
+
+            <!-- Configuración específica de Hibernate 7 -->
+            <property name="hibernate.dialect"
+                      value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="false"/>
+
+            <!-- NUEVAS PROPIEDADES HIBERNATE 7 -->
+            <property name="hibernate.connection.provider_disables_autocommit" value="true"/>
+            <property name="hibernate.session.events.log" value="false"/>
+
+            <!-- Pool de conexiones -->
+            <property name="hibernate.connection.pool_size" value="5"/>
+        </properties>
+    </persistence-unit>
+</persistence>
